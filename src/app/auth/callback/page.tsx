@@ -4,7 +4,7 @@ import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { supabase } from "@/lib/supabaseClient";
 import Lottie from "lottie-react";
-import bookAnimation from "@/animations/book.json";
+import bookAnimation from "../../../animations/book.json";
 
 export default function AuthCallbackPage() {
   const router = useRouter();

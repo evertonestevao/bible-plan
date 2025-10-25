@@ -11,7 +11,7 @@ import {
 } from "@/components/ui/select";
 import { Label } from "@/components/ui/label";
 import Lottie from "lottie-react";
-import bookAnimation from "@/animations/book.json";
+import bookAnimation from "../../animations/book.json";
 import Footer from "@/components/ui/Footer";
 import LoginButton from "@/components/ui/LoginButton";
 import { useUser } from "@/contexts/UserContext";

@@ -2,7 +2,7 @@
 
 import { Button } from "@/components/ui/button";
 import Lottie from "lottie-react";
-import bookAnimation from "@/animations/book.json";
+import bookAnimation from "../animations/book.json";
 import LoginButton from "@/components/ui/LoginButton";
 import Link from "next/link";
 

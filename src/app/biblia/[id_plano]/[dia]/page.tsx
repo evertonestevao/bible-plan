@@ -3,7 +3,7 @@
 import { useState, useEffect, useRef } from "react";
 import { VersionSelector } from "@/components/ui/VersionSelector";
 import Lottie from "lottie-react";
-import bookAnimation from "@/animations/book.json";
+import bookAnimation from "../../../../animations/book.json";
 import Footer from "@/components/ui/Footer";
 import { useRouter, useParams } from "next/navigation";
 import { supabase } from "@/lib/supabaseClient";
