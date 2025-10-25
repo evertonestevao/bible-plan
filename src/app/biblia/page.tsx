@@ -72,7 +72,7 @@ export default function BibliaPage() {
       <div className="min-h-screen flex flex-col items-center justify-center">
         <div className="w-64 h-64">
           {/* <Lottie animationData={bookAnimation} loop={true} /> */}
-          Carregando...
+          Carregando
         </div>
       </div>
     );
