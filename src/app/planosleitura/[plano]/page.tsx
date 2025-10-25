@@ -184,7 +184,7 @@ export default function EditarPlanoPage() {
   return (
     <div className="p-4 max-w-4xl mx-auto">
       {/* Topo do plano */}
-      <div className="mb-6 p-4 rounded-lg bg-gradient-to-r from-cyan-400 to-blue-500 text-white shadow-md">
+      <div className="mb-6 p-4 rounded-lg  from-cyan-400 to-blue-500 text-white shadow-md">
         <h1 className="text-2xl font-bold">{plano.nome}</h1>
         {plano.descricao && <p className="text-sm mt-1">{plano.descricao}</p>}
         <div className="mt-2 flex flex-wrap gap-4">
