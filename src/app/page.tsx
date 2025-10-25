@@ -1,8 +1,8 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-// import Lottie from "lottie-react";
-// import bookAnimation from "../animations/book.json";
+import Lottie from "lottie-react";
+import bookAnimation from "../animations/book.json";
 import LoginButton from "@/components/ui/LoginButton";
 import Link from "next/link";
 
@@ -11,8 +11,7 @@ export default function Home() {
     <div className="min-h-screen flex flex-col items-center justify-center from-gray-50 to-white dark:from-gray-950 dark:to-black p-8">
       <main className="flex flex-col items-center gap-8 text-center max-w-md">
         <div className="w-64 h-64 -mb-12 -mt-8">
-          {/* <Lottie animationData={bookAnimation} loop={true} /> */}
-          Carregando...
+          <Lottie animationData={bookAnimation} loop={true} />
         </div>
 
         <h1 className="text-3xl sm:text-4xl font-bold tracking-tight">
