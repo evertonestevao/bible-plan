@@ -2,8 +2,8 @@
 
 import { useState, useEffect, useRef } from "react";
 import { VersionSelector } from "@/components/ui/VersionSelector";
-import Lottie from "lottie-react";
-import bookAnimation from "../../../../animations/book.json";
+// import Lottie from "lottie-react";
+// import bookAnimation from "../../../../animations/book.json";
 import Footer from "@/components/ui/Footer";
 import { useRouter, useParams } from "next/navigation";
 import { supabase } from "@/lib/supabaseClient";
@@ -187,7 +187,8 @@ export default function BibliaPage() {
     return (
       <div className="min-h-screen flex flex-col items-center justify-center">
         <div className="w-64 h-64">
-          <Lottie animationData={bookAnimation} loop={true} />
+          {/* <Lottie animationData={bookAnimation} loop={true} /> */}
+          Carregando...
         </div>
       </div>
     );

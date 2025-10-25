@@ -3,8 +3,8 @@
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { supabase } from "@/lib/supabaseClient";
-import Lottie from "lottie-react";
-import bookAnimation from "../../../animations/book.json";
+// import Lottie from "lottie-react";
+// import bookAnimation from "../../../animations/book.json";
 
 export default function AuthCallbackPage() {
   const router = useRouter();
@@ -46,7 +46,8 @@ export default function AuthCallbackPage() {
   return (
     <div className="flex items-center justify-center h-screen text-lg">
       <div className="w-64 h-64 -mb-12 -mt-8">
-        <Lottie animationData={bookAnimation} loop={true} />
+        {/* <Lottie animationData={bookAnimation} loop={true} /> */}
+        Carregando
       </div>
     </div>
   );
