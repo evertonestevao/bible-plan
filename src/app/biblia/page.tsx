@@ -10,8 +10,8 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Label } from "@/components/ui/label";
-// import Lottie from "lottie-react";
-// import bookAnimation from "../../animations/book.json";
+import Lottie from "lottie-react";
+import bookAnimation from "../../animations/book.json";
 import Footer from "@/components/ui/Footer";
 import LoginButton from "@/components/ui/LoginButton";
 import { useUser } from "@/contexts/UserContext";
@@ -71,8 +71,8 @@ export default function BibliaPage() {
     return (
       <div className="min-h-screen flex flex-col items-center justify-center">
         <div className="w-64 h-64">
-          {/* <Lottie animationData={bookAnimation} loop={true} /> */}
-          Carregando
+          <Lottie animationData={bookAnimation} loop={true} />
+          {/* Carregando */}
         </div>
       </div>
     );
