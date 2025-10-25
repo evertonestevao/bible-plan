@@ -1,6 +1,10 @@
+// app/layout.tsx ou globals/layout.tsx
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import { Toaster } from "@/components/ui/sonner";
 import "./globals.css";
+import MenuWrapper from "@/components/ui/MenuWrapper";
+import { UserProvider } from "@/contexts/UserContext";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -19,15 +23,17 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+}: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en">
+    <html lang="pt-BR">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased scroll-smooth bg-[#f8f8f5] text-gray-800 dark:bg-[#111418] dark:text-gray-200 transition-colors duration-300`}
       >
-        {children}
+        <UserProvider>
+          {children}
+          <Toaster />
+          <MenuWrapper />
+        </UserProvider>
       </body>
     </html>
   );
