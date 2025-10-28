@@ -1,7 +1,7 @@
 "use client";
 
 import Lottie from "lottie-react";
-import bookAnimation from "../../animations/book.json";
+import bookAnimation from "@/animations/book.json";
 
 export default function BookLoader() {
   return (
