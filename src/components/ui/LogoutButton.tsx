@@ -3,8 +3,11 @@
 import { Button } from "@/components/ui/button";
 import { supabase } from "@/lib/supabaseClient";
 import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 
 export default function LogoutButton() {
+  const router = useRouter();
+
   const handleLogout = async () => {
     const { error } = await supabase.auth.signOut();
 
@@ -12,8 +15,7 @@ export default function LogoutButton() {
       toast.error("Erro ao sair: " + error.message);
     } else {
       toast.success("Logout realizado com sucesso!");
-      // opcional: redirecionar para a home
-      window.location.href = "/";
+      router.push("/"); // redireciona sem recarregar
     }
   };
 
