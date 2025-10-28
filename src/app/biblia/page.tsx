@@ -10,11 +10,13 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Label } from "@/components/ui/label";
-import Lottie from "lottie-react";
-import bookAnimation from "../../animations/book.json";
+// import Lottie from "lottie-react";
+// import bookAnimation from "../../animations/book.json";
 import Footer from "@/components/ui/Footer";
 import LoginButton from "@/components/ui/LoginButton";
 import { useUser } from "@/contexts/UserContext";
+import BookLoader from "@/components/ui/BookAnimation";
+// import BookLoader from "@/components/ui/BookAnimation";
 
 type Livro = {
   name: string;
@@ -69,10 +71,11 @@ export default function BibliaPage() {
 
   if (primeiroCarregamento)
     return (
-      <div className="min-h-screen flex flex-col items-center justify-center">
+      <div className="min-h-screen flex items-center justify-center">
         <div className="w-64 h-64">
-          <Lottie animationData={bookAnimation} loop={true} />
+          {/* <Lottie animationData={bookAnimation} loop={true} /> */}
           {/* Carregando */}
+          <BookLoader />
         </div>
       </div>
     );
