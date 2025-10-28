@@ -10,7 +10,7 @@ export default function BookLoader() {
   > | null>(null);
 
   useEffect(() => {
-    fetch("/animations/bookanimation.json")
+    fetch("/animations/book.json")
       .then((res) => res.json())
       .then(setAnimationData)
       .catch((err) => console.error("Erro ao carregar animação:", err));
