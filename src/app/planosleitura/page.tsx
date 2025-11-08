@@ -5,6 +5,8 @@ import { Button } from "@/components/ui/button";
 import { Trash2, Edit, Plus } from "lucide-react";
 import Link from "next/link";
 import { supabase } from "@/lib/supabaseClient";
+import { useUser } from "@/contexts/UserContext";
+import { useRouter } from "next/navigation";
 
 type Plano = {
   id: string;
@@ -13,6 +15,23 @@ type Plano = {
 };
 
 export default function PlanosLeituraPage() {
+  const { user } = useUser();
+  const router = useRouter();
+
+  useEffect(() => {
+    if (!user) return;
+
+    if (user.tipo !== "admin") {
+      router.push("/");
+    }
+
+    if (!user.id) {
+      router.push("/");
+    }
+  }, [user]);
+
+  const userId = user?.id || null;
+
   const [planos, setPlanos] = useState<Plano[]>([]);
   const [novoPlanoAtivo, setNovoPlanoAtivo] = useState(false);
   const [nomeNovoPlano, setNomeNovoPlano] = useState("");
@@ -21,28 +40,32 @@ export default function PlanosLeituraPage() {
   const [planosPublicos, setPlanosPublicos] = useState<Plano[]>([]);
   const [carregandoPlanosPublicos, setCarregandoPlanosPublicos] =
     useState(true);
+  const [carregando, setCarregando] = useState(true);
 
   const carregarPlanos = async () => {
     const { data, error } = await supabase
       .from("planos_leitura")
       .select("*")
+      .eq("usuario_id", userId)
       .order("created_at", { ascending: true });
+
     if (error) console.error(error);
     else setPlanos(data || []);
   };
 
   useEffect(() => {
+    if (!userId) return;
     carregarPlanos();
-  }, []);
+  }, [userId]);
 
   const criarPlano = async () => {
     if (!nomeNovoPlano.trim()) return alert("Digite o nome do plano");
 
-    // Pega usuário logado
     const {
       data: { user },
       error: userError,
     } = await supabase.auth.getUser();
+
     if (userError || !user) return alert("Usuário não autenticado");
 
     const { data, error } = await supabase
@@ -81,21 +104,19 @@ export default function PlanosLeituraPage() {
   };
 
   useEffect(() => {
-    const carregarPlanos = async () => {
-      const { data: planoData, error: planoError } = await supabase
+    const carregarPlanosPublicos = async () => {
+      const { data, error } = await supabase
         .from("planos_leitura")
         .select("*")
-        .eq("publico", true)
-        .single();
+        .eq("publico", true);
 
-      if (planoError) {
-        console.error(planoError);
-        return;
-      }
-      setPlanosPublicos(planoData);
+      if (error) console.error(error);
+      else setPlanosPublicos(data || []);
+
+      setCarregandoPlanosPublicos(false);
     };
 
-    setCarregandoPlanosPublicos(false);
+    carregarPlanosPublicos();
   }, []);
 
   return (

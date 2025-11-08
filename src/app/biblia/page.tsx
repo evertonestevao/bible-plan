@@ -16,6 +16,7 @@ import Footer from "@/components/ui/Footer";
 import LoginButton from "@/components/ui/LoginButton";
 import { useUser } from "@/contexts/UserContext";
 import BookLoader from "@/components/ui/BookAnimation";
+import VersiculoCollapse from "@/components/ui/VersiculoCollapse";
 // import BookLoader from "@/components/ui/BookAnimation";
 
 type Livro = {
@@ -156,13 +157,18 @@ export default function BibliaPage() {
           </div>
         )}
 
-        {/* Área de leitura (scroll natural da página) */}
+        {/* Ao clicar aqui, quero abrir um tipo de collapse para mostrar em baixo o mesmo versículo em outras versões */}
         {livro && (
           <div className="border rounded p-4 dark:bg-gray-900 space-y-2">
             {versos.map((v, i) => (
-              <p key={i}>
-                <strong>{i + 1} </strong> {v}
-              </p>
+              <VersiculoCollapse
+                key={`${versao}-${i}`}
+                numero={i + 1}
+                textoPadrao={v}
+                livroAbrev={livro.abbrev}
+                capitulo={capituloIndex}
+                versaoAtual={versao}
+              />
             ))}
           </div>
         )}

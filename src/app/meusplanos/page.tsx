@@ -9,6 +9,7 @@ import { Badge } from "@/components/ui/badge";
 import { toast } from "sonner";
 import Link from "next/link";
 import { useUser } from "@/contexts/UserContext";
+import LoginButton from "@/components/ui/LoginButton";
 
 type Plano = {
   id: string;
@@ -30,13 +31,12 @@ export default function MeuPlanoPage() {
   const [meusPlanos, setMeusPlanos] = useState<Plano[]>([]);
   const { user, loading } = useUser();
 
+  const userId = user?.id || null;
+
   const [carregandoPlanosPublicos, setCarregandoPlanosPublicos] =
     useState(true);
   const [carregandoMeusPlanos, setCarregandoMeusPlanos] = useState(true);
 
-  const userId = user?.id || "usuário não logado";
-
-  // 🔹 Simulações de ação
   const inscrever = async (plano_id: string) => {
     if (!user) {
       toast.error("Você precisa estar logado para se inscrever!");
@@ -164,30 +164,6 @@ export default function MeuPlanoPage() {
         </p>
       </div>
 
-      {/* {loading ? (
-        <h2 className="text-xl font-bold">Carregando o usuário...</h2>
-      ) : user ? (
-        <div className="text-xl font-bold space-y-1">
-          <p>Olá, {user.nome ?? "usuário"}!</p>
-          <p>
-            <strong>ID:</strong> {user.id}
-          </p>
-          <p>
-            <strong>Email:</strong> {user.email}
-          </p>
-          <p>
-            <strong>Tipo:</strong> {user.tipo ?? "não definido"}
-          </p>
-          <p>
-            <strong>Criado em:</strong> {user.criado_em ?? "não definido"}
-            <strong>Criado em:</strong> {userId}
-          </p>
-        </div>
-      ) : (
-        <h2 className="text-xl font-bold">Você não está logado</h2>
-      )} */}
-
-      {/* 🔹 Meus Planos Seguidos */}
       <section>
         <h2 className="text-xl font-semibold mb-4 border-b pb-2 justify-between ">
           ✅ Meus Planos{" "}
@@ -198,32 +174,56 @@ export default function MeuPlanoPage() {
             {meusPlanos.length}
           </Badge>
         </h2>
-        {carregandoMeusPlanos ? (
-          <p className="text-gray-500">Carregando meus planos</p>
-        ) : meusPlanos.length === 0 ? (
-          <p className="text-gray-500">
-            Você não está inscrito em nenhum plano.
-          </p>
+        {/* Criar um IF caso o usuário não esteja logado */}
+        {/* Criar um IF caso o usuário não esteja logado */}
+        {/* Criar um IF caso o usuário não esteja logado */}
+        {/* Criar um IF caso o usuário não esteja logado */}
+        {/* Criar um IF caso o usuário não esteja logado */}
+        {/* Criar um IF caso o usuário não esteja logado */}
+        {/* Criar um IF caso o usuário não esteja logado */}
+        {/* Criar um IF caso o usuário não esteja logado */}
+        {/* Criar um IF caso o usuário não esteja logado */}
+        {/* Criar um IF caso o usuário não esteja logado */}
+        {/* Criar um IF caso o usuário não esteja logado */}
+
+        {!userId ? (
+          <div className="bg-gray-100 border border-gray-300 rounded-lg p-4 flex items-center justify-between">
+            <div className="text-gray-700">
+              <p className="font-medium">Você não está logado</p>
+              <p className="text-sm text-gray-500">
+                Entre para acessar seus planos
+              </p>
+            </div>
+            <LoginButton />
+          </div>
         ) : (
-          <div className="grid gap-4 sm:grid-cols-2">
-            {meusPlanos.map((plano) => (
-              <div
-                key={plano.id}
-                className="relative border rounded-2xl p-5 shadow-sm hover:shadow-md bg-white dark:bg-gray-900 transition"
-              >
-                {/* Botão de compartilhar */}
-                <button className="absolute top-3 right-4 p-1 rounded hover:bg-gray-200 dark:hover:bg-gray-800 transition">
-                  <Share2 className="w-5 h-5 text-gray-500 dark:text-gray-400" />
-                </button>
+          <>
+            {carregandoMeusPlanos ? (
+              <p className="text-gray-500">Carregando meus planos</p>
+            ) : meusPlanos.length === 0 ? (
+              <p className="text-gray-500">
+                Você não está inscrito em nenhum plano.
+              </p>
+            ) : (
+              <div className="grid gap-4 sm:grid-cols-2">
+                {meusPlanos.map((plano) => (
+                  <div
+                    key={plano.id}
+                    className="relative border rounded-2xl p-5 shadow-sm hover:shadow-md bg-white dark:bg-gray-900 transition"
+                  >
+                    {/* Botão de compartilhar */}
+                    <button className="absolute top-3 right-4 p-1 rounded hover:bg-gray-200 dark:hover:bg-gray-800 transition">
+                      <Share2 className="w-5 h-5 text-gray-500 dark:text-gray-400" />
+                    </button>
 
-                {/* Nome e descrição */}
-                <h3 className="font-semibold text-lg">{plano.nome}</h3>
-                <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
-                  {plano.descricao}
-                </p>
+                    {/* Nome e descrição */}
+                    <h3 className="font-semibold text-lg">{plano.nome}</h3>
+                    <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
+                      {plano.descricao}
+                    </p>
 
-                {/* Barra de progresso */}
-                {/* <div className="mt-4">
+                    {/* Barra de progresso */}
+                    {/* <div className="mt-4">
                   <Progress
                     value={plano.progresso ?? 34}
                     className="h-2 rounded-full "
@@ -233,43 +233,45 @@ export default function MeuPlanoPage() {
                   </p>
                 </div> */}
 
-                {/* Informações e ação */}
-                <div className="flex items-center justify-between mt-4">
-                  {/* Informações do plano */}
-                  <div className="flex flex-col gap-1 text-gray-500 text-sm">
-                    {(plano.usuarios_planos?.length ?? 0) > 0 && (
-                      <div className="flex items-center gap-1">
-                        <Users className="w-4 h-4" />{" "}
-                        {plano.usuarios_planos?.[0]?.count} inscritos
+                    {/* Informações e ação */}
+                    <div className="flex items-center justify-between mt-4">
+                      {/* Informações do plano */}
+                      <div className="flex flex-col gap-1 text-gray-500 text-sm">
+                        {(plano.usuarios_planos?.length ?? 0) > 0 && (
+                          <div className="flex items-center gap-1">
+                            <Users className="w-4 h-4" />{" "}
+                            {plano.usuarios_planos?.[0]?.count} inscritos
+                          </div>
+                        )}
+                        <div className="flex items-center gap-1">
+                          Criado por{" "}
+                          <span className="text-accent-foreground font-medium">
+                            {plano.usuario.nome}
+                          </span>
+                        </div>
                       </div>
-                    )}
-                    <div className="flex items-center gap-1">
-                      Criado por{" "}
-                      <span className="text-accent-foreground font-medium">
-                        {plano.usuario.nome}
-                      </span>
+
+                      <div className="items-end gap-2 flex ">
+                        <Link href={`/meusplanos/${plano.id}`}>
+                          <Button className="text-sm bg-green-600 hover:bg-green-700">
+                            Abrir
+                          </Button>
+                        </Link>
+
+                        <Button
+                          onClick={() => cancelarInscricao(plano.id)}
+                          variant="outline"
+                          className="text-sm"
+                        >
+                          Cancelar
+                        </Button>
+                      </div>
                     </div>
                   </div>
-
-                  <div className="items-end gap-2 flex ">
-                    <Link href={`/meusplanos/${plano.id}`}>
-                      <Button className="text-sm bg-green-600 hover:bg-green-700">
-                        Abrir
-                      </Button>
-                    </Link>
-
-                    <Button
-                      onClick={() => cancelarInscricao(plano.id)}
-                      variant="outline"
-                      className="text-sm"
-                    >
-                      Cancelar
-                    </Button>
-                  </div>
-                </div>
+                ))}
               </div>
-            ))}
-          </div>
+            )}
+          </>
         )}
       </section>
 

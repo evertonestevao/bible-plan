@@ -68,7 +68,6 @@ export default function InicioPage() {
   const carregarPlano = async () => {
     const { data: plano, error } = await supabase
       .from("planos_leitura")
-      // .select(`*`)
       .select(
         `
           *,
@@ -80,7 +79,10 @@ export default function InicioPage() {
       .single();
 
     if (error) {
-      console.error("Erro ao carregar o plano:", error.message);
+      toast.success("Plano não encontrado", {
+        duration: 4000,
+      });
+      window.location.href = "/meusplanos";
     } else {
       setPlano(plano);
     }
