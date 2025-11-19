@@ -15,7 +15,7 @@ export default function LoginButton() {
   };
 
   return (
-    <div className="p-4 sm:p-0">
+    <div className="">
       <Button
         onClick={handleLogin}
         className="

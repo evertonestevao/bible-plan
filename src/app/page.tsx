@@ -31,7 +31,8 @@ export default function Home() {
           <Link href="/biblia">
             <Button
               variant="outline"
-              className="w-full sm:w-auto border-gray-300 dark:border-gray-700"
+              className=" w-full sm:w-auto flex items-center gap-3 justify-center
+               border-gray-300 dark:border-gray-700"
             >
               Bíblia online
             </Button>
