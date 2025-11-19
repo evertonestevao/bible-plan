@@ -1,10 +1,10 @@
-// app/layout.tsx ou globals/layout.tsx
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { Toaster } from "@/components/ui/sonner";
 import "./globals.css";
 import MenuWrapper from "@/components/ui/MenuWrapper";
 import { UserProvider } from "@/contexts/UserContext";
+import { Providers } from "../providers"; //  ⬅️ IMPORTANTE
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -31,7 +31,7 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="pt-BR">
+    <html lang="pt-BR" suppressHydrationWarning>
       <head>
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta
@@ -40,14 +40,24 @@ export default function RootLayout({
         />
         <link rel="apple-touch-icon" href="/icons/icon-512x512.png" />
       </head>
+
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased scroll-smooth bg-[#f8f8f5] text-gray-800 dark:bg-[#111418] dark:text-gray-200 transition-colors duration-300`}
+        className={`
+          ${geistSans.variable} 
+          ${geistMono.variable} 
+          antialiased scroll-smooth 
+          bg-[#f8f8f5] text-gray-800
+          dark:bg-[#111418] dark:text-gray-200
+          transition-colors duration-300
+        `}
       >
-        <UserProvider>
-          {children}
-          <Toaster />
-          <MenuWrapper />
-        </UserProvider>
+        <Providers>
+          <UserProvider>
+            {children}
+            <Toaster />
+            <MenuWrapper />
+          </UserProvider>
+        </Providers>
       </body>
     </html>
   );

@@ -18,10 +18,17 @@ export default function LoginButton() {
     <div className="p-4 sm:p-0">
       <Button
         onClick={handleLogin}
-        className="w-full sm:w-auto flex items-center justify-center gap-2 bg-white border-yellow border hover:bg-yellow-500 text-white"
+        className="
+      w-full sm:w-auto flex items-center gap-3 justify-center
+      bg-white text-gray-700 border border-gray-300
+      hover:bg-gray-100
+      dark:bg-gray-800 dark:text-gray-200 dark:border-gray-700
+      dark:hover:bg-gray-700
+      transition-colors
+    "
       >
         <FcGoogle size={24} />
-        <span className="text-gray-600">Entrar</span>
+        <span className="font-medium">Entrar</span>
       </Button>
     </div>
   );

@@ -17,6 +17,7 @@ import LoginButton from "@/components/ui/LoginButton";
 import { useUser } from "@/contexts/UserContext";
 import BookLoader from "@/components/ui/BookAnimation";
 import VersiculoCollapse from "@/components/ui/VersiculoCollapse";
+import { ThemeToggle } from "@/components/ui/theme-toggle";
 // import BookLoader from "@/components/ui/BookAnimation";
 
 type Livro = {
@@ -101,6 +102,7 @@ export default function BibliaPage() {
           {/* Container à direita para VersionSelector e LoginButton */}
           <div className="flex items-center gap-4">
             <VersionSelector versao={versao} setVersao={setVersao} />
+            <ThemeToggle />
             {!user && <LoginButton />}
           </div>
         </div>
