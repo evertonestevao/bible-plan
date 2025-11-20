@@ -10,6 +10,7 @@ import { supabase } from "@/lib/supabaseClient";
 import Footer from "@/components/ui/Footer";
 import { toast } from "sonner";
 import { useUser } from "@/contexts/UserContext";
+import Header from "@/components/ui/Header";
 
 type Dia = {
   id: string;
@@ -267,6 +268,7 @@ export default function InicioPage() {
 
   return (
     <div className="p-8 max-w-4xl mx-auto flex flex-col gap-8">
+      <Header sticky={true} />
       <Card className="bg-yellow-50 dark:bg-yellow-900 border border-yellow-200 dark:border-yellow-800 shadow-sm">
         <CardHeader className="-mb-4">
           <CardTitle className="text-2xl font-semibold text-yellow-900 dark:text-yellow-50">

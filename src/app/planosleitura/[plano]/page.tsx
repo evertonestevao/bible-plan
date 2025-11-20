@@ -13,6 +13,7 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { Button } from "@/components/ui/button";
 import { supabase } from "@/lib/supabaseClient";
 import { useParams } from "next/navigation";
+import Header from "@/components/ui/Header";
 
 // Tipagem
 type Livro = {
@@ -183,7 +184,7 @@ export default function EditarPlanoPage() {
 
   return (
     <div className="p-4 max-w-4xl mx-auto mb-12">
-      {/* Topo do plano */}
+      <Header sticky={true} />
       <div className="mb-6 p-4 rounded-lg  from-cyan-400 to-blue-500 text-white shadow-md">
         <h1 className="text-2xl font-bold">{plano.nome}</h1>
         {plano.descricao && <p className="text-sm mt-1">{plano.descricao}</p>}

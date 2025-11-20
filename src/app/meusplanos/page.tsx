@@ -10,6 +10,7 @@ import { toast } from "sonner";
 import Link from "next/link";
 import { useUser } from "@/contexts/UserContext";
 import LoginButton from "@/components/ui/LoginButton";
+import Header from "@/components/ui/Header";
 
 type Plano = {
   id: string;
@@ -156,7 +157,8 @@ export default function MeuPlanoPage() {
 
   return (
     <div className="p-6 max-w-5xl mx-auto flex flex-col gap-10">
-      {/* 🔹 Título principal */}
+      <Header sticky={true} />
+
       <div className="text-center">
         <h1 className="text-2xl font-bold mb-2">Planos de Leitura</h1>
         <p className="text-gray-600 dark:text-gray-400">
@@ -174,17 +176,6 @@ export default function MeuPlanoPage() {
             {meusPlanos.length}
           </Badge>
         </h2>
-        {/* Criar um IF caso o usuário não esteja logado */}
-        {/* Criar um IF caso o usuário não esteja logado */}
-        {/* Criar um IF caso o usuário não esteja logado */}
-        {/* Criar um IF caso o usuário não esteja logado */}
-        {/* Criar um IF caso o usuário não esteja logado */}
-        {/* Criar um IF caso o usuário não esteja logado */}
-        {/* Criar um IF caso o usuário não esteja logado */}
-        {/* Criar um IF caso o usuário não esteja logado */}
-        {/* Criar um IF caso o usuário não esteja logado */}
-        {/* Criar um IF caso o usuário não esteja logado */}
-        {/* Criar um IF caso o usuário não esteja logado */}
 
         {!userId ? (
           <div className="bg-gray-100 border border-gray-300 rounded-lg p-4 flex items-center justify-between">

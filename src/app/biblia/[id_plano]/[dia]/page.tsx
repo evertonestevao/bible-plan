@@ -9,6 +9,7 @@ import { useRouter, useParams } from "next/navigation";
 import { supabase } from "@/lib/supabaseClient";
 import { toast } from "sonner";
 import BookLoader from "@/components/ui/BookAnimation";
+import Header from "@/components/ui/Header";
 // import BookAnimation from "@/components/ui/BookAnimation";
 
 type Livro = {
@@ -249,7 +250,7 @@ export default function BibliaPage() {
 
   return (
     <div className="min-h-screen flex flex-col bg-[#f8f8f5] dark:bg-gray-950">
-      {/* Cabeçalho fixo */}
+      <Header />
       <div
         ref={headerRef}
         className="sticky top-0 z-10 bg-[#f8f8f5] dark:bg-gray-950 border-b border-gray-200 dark:border-gray-800 shadow-sm"

@@ -7,6 +7,7 @@ import Link from "next/link";
 import { supabase } from "@/lib/supabaseClient";
 import { useUser } from "@/contexts/UserContext";
 import { useRouter } from "next/navigation";
+import Header from "@/components/ui/Header";
 
 type Plano = {
   id: string;
@@ -121,6 +122,7 @@ export default function PlanosLeituraPage() {
 
   return (
     <div className="p-4 max-w-3xl mx-auto">
+      <Header sticky={true} />
       <div className="flex justify-between items-center mb-6">
         <h1 className="text-2xl font-bold">Planos de Leitura</h1>
         <Button
