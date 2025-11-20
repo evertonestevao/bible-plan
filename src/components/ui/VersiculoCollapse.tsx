@@ -64,9 +64,17 @@ export default function VersiculoCollapse({
   };
 
   return (
-    <div className="border-gray-300 dark:border-gray-700">
+    <div
+      className={`border-gray-300 dark:border-gray-700 ${
+        open ? "bg-gray-200 dark:bg-gray-700" : ""
+      }`}
+    >
       <p
-        className="hover:bg-gray-100 dark:hover:bg-gray-800 cursor-pointer p-1 rounded"
+        className={`
+          cursor-pointer p-1 rounded
+          hover:bg-gray-100 dark:hover:bg-gray-800
+          
+        `}
         onClick={abrir}
       >
         <strong>{numero} </strong> {textoPadrao}

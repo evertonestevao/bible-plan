@@ -18,6 +18,7 @@ import { useUser } from "@/contexts/UserContext";
 import BookLoader from "@/components/ui/BookAnimation";
 import VersiculoCollapse from "@/components/ui/VersiculoCollapse";
 import { ThemeToggle } from "@/components/ui/theme-toggle";
+import Header from "@/components/ui/Header";
 // import BookLoader from "@/components/ui/BookAnimation";
 
 type Livro = {
@@ -87,29 +88,47 @@ export default function BibliaPage() {
 
   return (
     <div className="min-h-screen flex flex-col bg-[#f8f8f5] dark:bg-gray-950">
-      {/* Cabeçalho fixo */}
+      <Header />
+
       <div className="sticky top-0 z-10 bg-[#f8f8f5] dark:bg-gray-950 border-b border-gray-200 dark:border-gray-800 shadow-sm">
-        <div className="max-w-3xl mx-auto flex justify-between items-center p-4">
+        <div className="max-w-3xl mx-auto flex justify-between items-center px-4 pb-3 pt-2">
           <div>
-            <h1 className="text-2xl font-bold">Bíblia</h1>
             {livro && (
-              <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
+              <p
+                className="
+                  text-sm text-gray-600 dark:text-gray-400 mt-1 
+                  cursor-pointer hover:underline 
+                  select-none active:scale-95
+                "
+                onClick={() => {
+                  const el = document.getElementById("seletor-livros");
+                  if (el) {
+                    const y = el.getBoundingClientRect().top + window.scrollY;
+                    const offset = 35;
+
+                    window.scrollTo({
+                      top: y - offset,
+                      behavior: "smooth",
+                    });
+                  }
+                }}
+                style={{
+                  WebkitTapHighlightColor: "transparent",
+                }}
+              >
                 📖 {livro.name} — Capítulo {capituloIndex + 1}
               </p>
             )}
           </div>
 
-          {/* Container à direita para VersionSelector e LoginButton */}
           <div className="flex items-center gap-4">
             <VersionSelector versao={versao} setVersao={setVersao} />
-            <ThemeToggle />
-            {!user && <LoginButton />}
           </div>
         </div>
       </div>
 
-      <main className="flex-1 w-full max-w-3xl mx-auto p-4">
-        {/* Livro + Capítulo */}
+      <main id="seletor-livros" className="flex-1 w-full max-w-3xl mx-auto p-4">
+        {/* LQuero que venha pra cá, pq as vezes desceu bastante */}
         {livro && (
           <div className="flex gap-4 mb-4 flex-wrap sm:flex-nowrap items-center">
             <div className="flex-1 min-w-[120px]">
