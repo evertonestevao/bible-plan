@@ -250,12 +250,11 @@ export default function BibliaPage() {
 
   return (
     <div className="min-h-screen flex flex-col bg-[#f8f8f5] dark:bg-gray-950">
-      <Header />
       <div
         ref={headerRef}
         className="sticky top-0 z-10 bg-[#f8f8f5] dark:bg-gray-950 border-b border-gray-200 dark:border-gray-800 shadow-sm"
       >
-        <div className="max-w-3xl mx-auto flex justify-between items-center p-4">
+        <div className="max-w-5xl mx-auto flex justify-between items-center p-4">
           <div>
             <h1 className="text-2xl font-bold">Bíblia</h1>
 
@@ -271,7 +270,7 @@ export default function BibliaPage() {
         </div>
       </div>
 
-      <main className="flex-1 w-full max-w-3xl mx-auto p-4 space-y-6">
+      <main className="flex-1 w-full max-w-5xl mx-auto p-4 space-y-6">
         {biblia.map((item) => (
           <div
             key={`${item.abbrev}-${item.capitulo}`}

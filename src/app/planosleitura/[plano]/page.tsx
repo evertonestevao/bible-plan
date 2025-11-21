@@ -183,182 +183,185 @@ export default function EditarPlanoPage() {
   }
 
   return (
-    <div className="p-4 max-w-4xl mx-auto mb-12">
-      <Header sticky={true} />
-      <div className="mb-6 p-4 rounded-lg  from-cyan-400 to-blue-500 text-white shadow-md">
-        <h1 className="text-2xl font-bold">{plano.nome}</h1>
-        {plano.descricao && <p className="text-sm mt-1">{plano.descricao}</p>}
-        <div className="mt-2 flex flex-wrap gap-4">
-          <span className="bg-white text-gray-800 px-2 py-1 rounded font-medium text-sm">
-            Dias criados: {dias.length}
-          </span>
-          <span className="bg-white text-gray-800 px-2 py-1 rounded font-medium text-sm">
-            Dia atual: {diaAtual}
-          </span>
-        </div>
-      </div>
-
-      {/* Seleção do dia e resumo */}
-      <div className="mb-4 flex flex-col sm:flex-row sm:items-end gap-4">
-        <div>
-          <Label>Dia</Label>
-          <input
-            type="number"
-            min={1}
-            value={diaAtual}
-            onChange={(e) => setDiaAtual(Number(e.target.value))}
-            className="w-24 border rounded px-2 py-1 mt-2"
-          />
-        </div>
-        <div className="flex-1">
-          <Label>Resumo do dia</Label>
-          <input
-            type="text"
-            value={resumoDia}
-            onChange={(e) => setResumoDia(e.target.value)}
-            placeholder="Digite um resumo do dia"
-            className="w-full border rounded px-2 py-1 mt-2"
-          />
-        </div>
-      </div>
-
-      {/* Seleção do livro e capítulo */}
-      <div className="mb-4 flex flex-col sm:flex-row gap-4">
-        <div className="flex-1">
-          <Label>Livro</Label>
-          <Select
-            value={livroSelecionado?.abbrev || ""}
-            onValueChange={(v) => {
-              const livro = biblia.find((l) => l.abbrev === v);
-              setLivroSelecionado(livro || null);
-              setCapituloSelecionado(null);
-              setVersosSelecionados([]);
-            }}
-          >
-            <SelectTrigger className="w-full mt-2">
-              <SelectValue placeholder="Selecione um livro" />
-            </SelectTrigger>
-            <SelectContent>
-              {biblia.map((l) => (
-                <SelectItem key={l.abbrev} value={l.abbrev}>
-                  {l.name}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
+    <>
+      <Header />
+      <div className="p-4 max-w-5xl mx-auto mb-12">
+        <div className="mb-6 p-4 rounded-lg  from-cyan-400 to-blue-500 text-white shadow-md">
+          <h1 className="text-2xl font-bold">{plano.nome}</h1>
+          {plano.descricao && <p className="text-sm mt-1">{plano.descricao}</p>}
+          <div className="mt-2 flex flex-wrap gap-4">
+            <span className="bg-white text-gray-800 px-2 py-1 rounded font-medium text-sm">
+              Dias criados: {dias.length}
+            </span>
+            <span className="bg-white text-gray-800 px-2 py-1 rounded font-medium text-sm">
+              Dia atual: {diaAtual}
+            </span>
+          </div>
         </div>
 
-        {livroSelecionado && (
-          <div className="w-32">
-            <Label>Capítulo</Label>
+        {/* Seleção do dia e resumo */}
+        <div className="mb-4 flex flex-col sm:flex-row sm:items-end gap-4">
+          <div>
+            <Label>Dia</Label>
+            <input
+              type="number"
+              min={1}
+              value={diaAtual}
+              onChange={(e) => setDiaAtual(Number(e.target.value))}
+              className="w-24 border rounded px-2 py-1 mt-2"
+            />
+          </div>
+          <div className="flex-1">
+            <Label>Resumo do dia</Label>
+            <input
+              type="text"
+              value={resumoDia}
+              onChange={(e) => setResumoDia(e.target.value)}
+              placeholder="Digite um resumo do dia"
+              className="w-full border rounded px-2 py-1 mt-2"
+            />
+          </div>
+        </div>
+
+        {/* Seleção do livro e capítulo */}
+        <div className="mb-4 flex flex-col sm:flex-row gap-4">
+          <div className="flex-1">
+            <Label>Livro</Label>
             <Select
-              value={capituloSelecionado?.toString() || ""}
+              value={livroSelecionado?.abbrev || ""}
               onValueChange={(v) => {
-                setCapituloSelecionado(Number(v));
+                const livro = biblia.find((l) => l.abbrev === v);
+                setLivroSelecionado(livro || null);
+                setCapituloSelecionado(null);
                 setVersosSelecionados([]);
               }}
             >
               <SelectTrigger className="w-full mt-2">
-                <SelectValue placeholder="Selecione um capítulo" />
+                <SelectValue placeholder="Selecione um livro" />
               </SelectTrigger>
               <SelectContent>
-                {livroSelecionado.chapters.map((_, i) => (
-                  <SelectItem key={i} value={i.toString()}>
-                    {i + 1}
+                {biblia.map((l) => (
+                  <SelectItem key={l.abbrev} value={l.abbrev}>
+                    {l.name}
                   </SelectItem>
                 ))}
               </SelectContent>
             </Select>
           </div>
-        )}
-      </div>
 
-      {/* Seleção dos versículos */}
-      {livroSelecionado && capituloSelecionado !== null && (
-        <div className="mb-4">
-          <Label>Versículos</Label>
-          <div className="mb-2 flex gap-2 flex-wrap mt-2">
-            <Button
-              className="bg-green-500 hover:bg-green-600"
-              size="sm"
-              onClick={() => {
-                const total =
-                  livroSelecionado.chapters[capituloSelecionado].length;
-                setVersosSelecionados(
-                  Array.from({ length: total }, (_, i) => i + 1)
-                );
-              }}
-            >
-              Selecionar todos
-            </Button>
-            <Button
-              size="sm"
-              variant="outline"
-              onClick={() => setVersosSelecionados([])}
-            >
-              Limpar seleção
-            </Button>
-          </div>
-
-          <ScrollArea className="h-48 border rounded p-2">
-            <div className="flex flex-wrap gap-2">
-              {Array.from(
-                {
-                  length: livroSelecionado.chapters[capituloSelecionado].length,
-                },
-                (_, i) => i + 1
-              ).map((v) => (
-                <button
-                  key={v}
-                  onClick={() =>
-                    setVersosSelecionados((prev) =>
-                      prev.includes(v)
-                        ? prev.filter((x) => x !== v)
-                        : [...prev, v]
-                    )
-                  }
-                  className={`px-2 py-1 border rounded transition ${
-                    versosSelecionados.includes(v)
-                      ? "bg-green-500 text-white"
-                      : "bg-gray-200 dark:bg-gray-800"
-                  }`}
-                >
-                  {v}
-                </button>
-              ))}
+          {livroSelecionado && (
+            <div className="w-32">
+              <Label>Capítulo</Label>
+              <Select
+                value={capituloSelecionado?.toString() || ""}
+                onValueChange={(v) => {
+                  setCapituloSelecionado(Number(v));
+                  setVersosSelecionados([]);
+                }}
+              >
+                <SelectTrigger className="w-full mt-2">
+                  <SelectValue placeholder="Selecione um capítulo" />
+                </SelectTrigger>
+                <SelectContent>
+                  {livroSelecionado.chapters.map((_, i) => (
+                    <SelectItem key={i} value={i.toString()}>
+                      {i + 1}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
             </div>
-          </ScrollArea>
+          )}
         </div>
-      )}
 
-      {/* Botão adicionar */}
-      <div className="mb-6">
-        <Button
-          className="bg-blue-500 hover:bg-blue-600"
-          size="lg"
-          onClick={adicionarLeitura}
-        >
-          Adicionar ao dia
-        </Button>
+        {/* Seleção dos versículos */}
+        {livroSelecionado && capituloSelecionado !== null && (
+          <div className="mb-4">
+            <Label>Versículos</Label>
+            <div className="mb-2 flex gap-2 flex-wrap mt-2">
+              <Button
+                className="bg-green-500 hover:bg-green-600"
+                size="sm"
+                onClick={() => {
+                  const total =
+                    livroSelecionado.chapters[capituloSelecionado].length;
+                  setVersosSelecionados(
+                    Array.from({ length: total }, (_, i) => i + 1)
+                  );
+                }}
+              >
+                Selecionar todos
+              </Button>
+              <Button
+                size="sm"
+                variant="outline"
+                onClick={() => setVersosSelecionados([])}
+              >
+                Limpar seleção
+              </Button>
+            </div>
+
+            <ScrollArea className="h-48 border rounded p-2">
+              <div className="flex flex-wrap gap-2">
+                {Array.from(
+                  {
+                    length:
+                      livroSelecionado.chapters[capituloSelecionado].length,
+                  },
+                  (_, i) => i + 1
+                ).map((v) => (
+                  <button
+                    key={v}
+                    onClick={() =>
+                      setVersosSelecionados((prev) =>
+                        prev.includes(v)
+                          ? prev.filter((x) => x !== v)
+                          : [...prev, v]
+                      )
+                    }
+                    className={`px-2 py-1 border rounded transition ${
+                      versosSelecionados.includes(v)
+                        ? "bg-green-500 text-white"
+                        : "bg-gray-200 dark:bg-gray-800"
+                    }`}
+                  >
+                    {v}
+                  </button>
+                ))}
+              </div>
+            </ScrollArea>
+          </div>
+        )}
+
+        {/* Botão adicionar */}
+        <div className="mb-6">
+          <Button
+            className="bg-blue-500 hover:bg-blue-600"
+            size="lg"
+            onClick={adicionarLeitura}
+          >
+            Adicionar ao dia
+          </Button>
+        </div>
+
+        {/* Dias já criados */}
+        {dias.map((d) => (
+          <div
+            key={d.id}
+            className="mb-4 border rounded p-3 bg-gray-50 dark:bg-gray-900"
+          >
+            <h2 className="font-semibold mb-1">
+              Dia {d.numero} {d.resumo && `- ${d.resumo}`}
+            </h2>
+            {d.leitura.map((l, idx) => (
+              <p key={idx}>
+                {l.livro} {l.capitulo} - Versículos:{" "}
+                <span className="font-light "> {l.versos.join(", ")}</span>
+              </p>
+            ))}
+          </div>
+        ))}
       </div>
-
-      {/* Dias já criados */}
-      {dias.map((d) => (
-        <div
-          key={d.id}
-          className="mb-4 border rounded p-3 bg-gray-50 dark:bg-gray-900"
-        >
-          <h2 className="font-semibold mb-1">
-            Dia {d.numero} {d.resumo && `- ${d.resumo}`}
-          </h2>
-          {d.leitura.map((l, idx) => (
-            <p key={idx}>
-              {l.livro} {l.capitulo} - Versículos:{" "}
-              <span className="font-light "> {l.versos.join(", ")}</span>
-            </p>
-          ))}
-        </div>
-      ))}
-    </div>
+    </>
   );
 }

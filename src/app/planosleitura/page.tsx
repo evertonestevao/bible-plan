@@ -121,96 +121,101 @@ export default function PlanosLeituraPage() {
   }, []);
 
   return (
-    <div className="p-4 max-w-3xl mx-auto">
-      <Header sticky={true} />
-      <div className="flex justify-between items-center mb-6">
-        <h1 className="text-2xl font-bold">Planos de Leitura</h1>
-        <Button
-          onClick={() => setNovoPlanoAtivo((prev) => !prev)}
-          className="flex items-center gap-1"
-        >
-          <Plus className="w-4 h-4" /> Criar novo plano
-        </Button>
-      </div>
+    <>
+      <Header />
+      <div className="p-4 max-w-5xl mx-auto">
+        <div className="flex justify-between items-center mb-6">
+          <h1 className="text-2xl font-bold">Planos de Leitura</h1>
+          <Button
+            onClick={() => setNovoPlanoAtivo((prev) => !prev)}
+            className="flex items-center gap-1"
+          >
+            <Plus className="w-4 h-4" /> Criar novo plano
+          </Button>
+        </div>
 
-      {novoPlanoAtivo && (
-        <div className="mb-6 border p-4 rounded-lg bg-gray-50 dark:bg-gray-900 flex flex-col gap-3">
-          <input
-            type="text"
-            placeholder="Nome do plano"
-            value={nomeNovoPlano}
-            onChange={(e) => setNomeNovoPlano(e.target.value)}
-            className="border rounded px-2 py-1 w-full"
-          />
-          <input
-            type="text"
-            placeholder="Descrição (opcional)"
-            value={descricaoNovoPlano}
-            onChange={(e) => setDescricaoNovoPlano(e.target.value)}
-            className="border rounded px-2 py-1 w-full"
-          />
-          <div className="flex items-center gap-2">
+        {novoPlanoAtivo && (
+          <div className="mb-6 border p-4 rounded-lg bg-gray-50 dark:bg-gray-900 flex flex-col gap-3">
             <input
-              type="checkbox"
-              checked={publicoNovoPlano}
-              onChange={(e) => setPublicoNovoPlano(e.target.checked)}
-              id="publico"
-              className="w-4 h-4"
+              type="text"
+              placeholder="Nome do plano"
+              value={nomeNovoPlano}
+              onChange={(e) => setNomeNovoPlano(e.target.value)}
+              className="border rounded px-2 py-1 w-full"
             />
-            <label htmlFor="publico" className="text-sm">
-              Plano público (Qualquer pessoa poderá ver este plano)
-            </label>
-          </div>
-
-          <div className="flex gap-2">
-            <Button onClick={criarPlano}>Salvar Plano</Button>
-            <Button variant="outline" onClick={() => setNovoPlanoAtivo(false)}>
-              Cancelar
-            </Button>
-          </div>
-        </div>
-      )}
-
-      {planos.length === 0 ? (
-        <p className="text-gray-500">Nenhum plano criado ainda.</p>
-      ) : (
-        <div className="flex flex-col gap-4">
-          {planos.map((plano) => (
-            <div
-              key={plano.id}
-              className="border rounded-lg p-4 flex justify-between items-center hover:shadow-md transition"
-            >
-              <div>
-                <h2 className="font-semibold text-lg">{plano.nome}</h2>
-                {plano.descricao && (
-                  <p className="text-sm text-gray-600 dark:text-gray-400 mr-2">
-                    {plano.descricao}
-                  </p>
-                )}
-              </div>
-
-              <div className="flex gap-2">
-                <Link href={`/planosleitura/${plano.id}`}>
-                  <Button
-                    size="sm"
-                    className="flex items-center gap-1 bg-amber-500"
-                  >
-                    <Edit className="w-4 h-4" /> Editar
-                  </Button>
-                </Link>
-                <Button
-                  variant="outline"
-                  size="sm"
-                  className="flex items-center gap-1"
-                  onClick={() => excluirPlano(plano.id)}
-                >
-                  <Trash2 className="w-4 h-4" /> Excluir
-                </Button>
-              </div>
+            <input
+              type="text"
+              placeholder="Descrição (opcional)"
+              value={descricaoNovoPlano}
+              onChange={(e) => setDescricaoNovoPlano(e.target.value)}
+              className="border rounded px-2 py-1 w-full"
+            />
+            <div className="flex items-center gap-2">
+              <input
+                type="checkbox"
+                checked={publicoNovoPlano}
+                onChange={(e) => setPublicoNovoPlano(e.target.checked)}
+                id="publico"
+                className="w-4 h-4"
+              />
+              <label htmlFor="publico" className="text-sm">
+                Plano público (Qualquer pessoa poderá ver este plano)
+              </label>
             </div>
-          ))}
-        </div>
-      )}
-    </div>
+
+            <div className="flex gap-2">
+              <Button onClick={criarPlano}>Salvar Plano</Button>
+              <Button
+                variant="outline"
+                onClick={() => setNovoPlanoAtivo(false)}
+              >
+                Cancelar
+              </Button>
+            </div>
+          </div>
+        )}
+
+        {planos.length === 0 ? (
+          <p className="text-gray-500">Nenhum plano criado ainda.</p>
+        ) : (
+          <div className="flex flex-col gap-4">
+            {planos.map((plano) => (
+              <div
+                key={plano.id}
+                className="border rounded-lg p-4 flex justify-between items-center hover:shadow-md transition"
+              >
+                <div>
+                  <h2 className="font-semibold text-lg">{plano.nome}</h2>
+                  {plano.descricao && (
+                    <p className="text-sm text-gray-600 dark:text-gray-400 mr-2">
+                      {plano.descricao}
+                    </p>
+                  )}
+                </div>
+
+                <div className="flex gap-2">
+                  <Link href={`/planosleitura/${plano.id}`}>
+                    <Button
+                      size="sm"
+                      className="flex items-center gap-1 bg-amber-500"
+                    >
+                      <Edit className="w-4 h-4" /> Editar
+                    </Button>
+                  </Link>
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    className="flex items-center gap-1"
+                    onClick={() => excluirPlano(plano.id)}
+                  >
+                    <Trash2 className="w-4 h-4" /> Excluir
+                  </Button>
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+    </>
   );
 }

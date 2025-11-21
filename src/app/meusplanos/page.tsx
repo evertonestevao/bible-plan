@@ -156,65 +156,74 @@ export default function MeuPlanoPage() {
   }, [user]);
 
   return (
-    <div className="p-6 max-w-5xl mx-auto flex flex-col gap-10">
-      <Header sticky={true} />
+    <>
+      <Header />
+      <div className="p-6 max-w-5xl mx-auto flex flex-col gap-10">
+        <div className="text-center">
+          <h1 className="text-2xl font-bold mb-2">Planos de Leitura</h1>
+          <p className="text-gray-600 dark:text-gray-400">
+            Acompanhe seus planos de leitura e descubra novos para seguir.
+          </p>
+        </div>
 
-      <div className="text-center">
-        <h1 className="text-2xl font-bold mb-2">Planos de Leitura</h1>
-        <p className="text-gray-600 dark:text-gray-400">
-          Acompanhe seus planos de leitura e descubra novos para seguir.
-        </p>
-      </div>
+        <section>
+          <h2 className="text-xl font-semibold mb-4 border-b pb-2 justify-between ">
+            ✅ Meus Planos{" "}
+            <Badge
+              variant="secondary"
+              className="bg-green-500 text-white dark:bg-green-600"
+            >
+              {meusPlanos.length}
+            </Badge>
+          </h2>
 
-      <section>
-        <h2 className="text-xl font-semibold mb-4 border-b pb-2 justify-between ">
-          ✅ Meus Planos{" "}
-          <Badge
-            variant="secondary"
-            className="bg-green-500 text-white dark:bg-green-600"
-          >
-            {meusPlanos.length}
-          </Badge>
-        </h2>
+          {!userId ? (
+            <div
+              className="
+              border rounded-lg p-4 flex items-center justify-between
+              bg-gray-100 dark:bg-gray-900
+              border-gray-300 dark:border-gray-700
+            "
+            >
+              <div>
+                <p className="font-medium text-gray-800 dark:text-gray-200">
+                  Você não está logado
+                </p>
+                <p className="text-sm text-gray-500 dark:text-gray-400">
+                  Entre para acessar seus planos
+                </p>
+              </div>
 
-        {!userId ? (
-          <div className="bg-gray-100 border border-gray-300 rounded-lg p-4 flex items-center justify-between">
-            <div className="text-gray-700">
-              <p className="font-medium">Você não está logado</p>
-              <p className="text-sm text-gray-500">
-                Entre para acessar seus planos
-              </p>
+              <LoginButton />
             </div>
-            <LoginButton />
-          </div>
-        ) : (
-          <>
-            {carregandoMeusPlanos ? (
-              <p className="text-gray-500">Carregando meus planos</p>
-            ) : meusPlanos.length === 0 ? (
-              <p className="text-gray-500">
-                Você não está inscrito em nenhum plano.
-              </p>
-            ) : (
-              <div className="grid gap-4 sm:grid-cols-2">
-                {meusPlanos.map((plano) => (
-                  <div
-                    key={plano.id}
-                    className="relative border rounded-2xl p-5 shadow-sm hover:shadow-md bg-white dark:bg-gray-900 transition"
-                  >
-                    {/* Botão de compartilhar */}
-                    <button className="absolute top-3 right-4 p-1 rounded hover:bg-gray-200 dark:hover:bg-gray-800 transition">
-                      <Share2 className="w-5 h-5 text-gray-500 dark:text-gray-400" />
-                    </button>
+          ) : (
+            <>
+              {carregandoMeusPlanos ? (
+                <p className="text-gray-500">Carregando meus planos</p>
+              ) : meusPlanos.length === 0 ? (
+                <p className="text-gray-500">
+                  Você não está inscrito em nenhum plano.
+                </p>
+              ) : (
+                <div className="grid gap-4 sm:grid-cols-2">
+                  {meusPlanos.map((plano) => (
+                    <div
+                      key={plano.id}
+                      className="relative border rounded-2xl p-5 shadow-sm hover:shadow-md bg-white dark:bg-gray-900 transition"
+                    >
+                      {/* Botão de compartilhar */}
+                      <button className="absolute top-3 right-4 p-1 rounded hover:bg-gray-200 dark:hover:bg-gray-800 transition">
+                        <Share2 className="w-5 h-5 text-gray-500 dark:text-gray-400" />
+                      </button>
 
-                    {/* Nome e descrição */}
-                    <h3 className="font-semibold text-lg">{plano.nome}</h3>
-                    <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
-                      {plano.descricao}
-                    </p>
+                      {/* Nome e descrição */}
+                      <h3 className="font-semibold text-lg">{plano.nome}</h3>
+                      <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
+                        {plano.descricao}
+                      </p>
 
-                    {/* Barra de progresso */}
-                    {/* <div className="mt-4">
+                      {/* Barra de progresso */}
+                      {/* <div className="mt-4">
                   <Progress
                     value={plano.progresso ?? 34}
                     className="h-2 rounded-full "
@@ -224,17 +233,89 @@ export default function MeuPlanoPage() {
                   </p>
                 </div> */}
 
-                    {/* Informações e ação */}
+                      {/* Informações e ação */}
+                      <div className="flex items-center justify-between mt-4">
+                        {/* Informações do plano */}
+                        <div className="flex flex-col gap-1 text-gray-500 text-sm">
+                          {(plano.usuarios_planos?.length ?? 0) > 0 && (
+                            <div className="flex items-center gap-1">
+                              <Users className="w-4 h-4" />{" "}
+                              {plano.usuarios_planos?.[0]?.count} inscritos
+                            </div>
+                          )}
+                          <div className="flex items-center gap-1">
+                            Criado por{" "}
+                            <span className="text-accent-foreground font-medium">
+                              {plano.usuario.nome}
+                            </span>
+                          </div>
+                        </div>
+
+                        <div className="items-end gap-2 flex ">
+                          <Link href={`/meusplanos/${plano.id}`}>
+                            <Button className="text-sm bg-green-600 hover:bg-green-700">
+                              Abrir
+                            </Button>
+                          </Link>
+
+                          <Button
+                            onClick={() => cancelarInscricao(plano.id)}
+                            variant="outline"
+                            className="text-sm"
+                          >
+                            Cancelar
+                          </Button>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </>
+          )}
+        </section>
+
+        {/* 🔹 Planos Públicos */}
+        {planosPublicos.length > 0 ? (
+          <section>
+            <h2 className="text-xl font-semibold mb-4 border-b pb-2">
+              📖 Planos Disponíveis{" "}
+              <Badge
+                variant="secondary"
+                className="bg-blue-500 text-white dark:bg-blue-600"
+              >
+                {planosPublicos.length}
+              </Badge>
+            </h2>
+            {carregandoPlanosPublicos ? (
+              <p className="text-gray-500">Carregando planos</p>
+            ) : planosPublicos.length === 0 ? (
+              <p className="text-gray-500">Nenhum plano público disponível.</p>
+            ) : (
+              <div className="grid gap-4 sm:grid-cols-2">
+                {planosPublicos.map((plano) => (
+                  <div
+                    key={plano.id}
+                    className="relative border rounded-2xl p-5 shadow-sm hover:shadow-md bg-gray-50 dark:bg-gray-900 transition"
+                  >
+                    <button className="absolute hover:cursor-pointer top-3 right-4 p-1 rounded hover:bg-gray-200 dark:hover:bg-gray-800 transition">
+                      <Share2 className="w-5 h-5 text-gray-500 dark:text-gray-400" />
+                    </button>
+                    <h3 className="font-semibold text-lg">{plano.nome}</h3>
+                    <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
+                      {plano.descricao}
+                    </p>
+
                     <div className="flex items-center justify-between mt-4">
                       {/* Informações do plano */}
                       <div className="flex flex-col gap-1 text-gray-500 text-sm">
-                        {(plano.usuarios_planos?.length ?? 0) > 0 && (
+                        {(plano.usuarios_planos?.[0]?.count ?? 0) > 0 && (
                           <div className="flex items-center gap-1">
                             <Users className="w-4 h-4" />{" "}
                             {plano.usuarios_planos?.[0]?.count} inscritos
                           </div>
                         )}
-                        <div className="flex items-center gap-1">
+                        <div className="flex items-center gap-1 ">
                           Criado por{" "}
                           <span className="text-accent-foreground font-medium">
                             {plano.usuario.nome}
@@ -242,93 +323,22 @@ export default function MeuPlanoPage() {
                         </div>
                       </div>
 
-                      <div className="items-end gap-2 flex ">
-                        <Link href={`/meusplanos/${plano.id}`}>
-                          <Button className="text-sm bg-green-600 hover:bg-green-700">
-                            Abrir
-                          </Button>
-                        </Link>
-
-                        <Button
-                          onClick={() => cancelarInscricao(plano.id)}
-                          variant="outline"
-                          className="text-sm"
-                        >
-                          Cancelar
-                        </Button>
-                      </div>
+                      {/* Botão de ação */}
+                      <Button
+                        onClick={() => inscrever(plano.id)}
+                        className="bg-cyan-600 hover:bg-cyan-700 text-white text-sm"
+                      >
+                        Inscrever-se
+                      </Button>
                     </div>
                   </div>
                 ))}
               </div>
             )}
-          </>
-        )}
-      </section>
-
-      {/* 🔹 Planos Públicos */}
-      {planosPublicos.length > 0 ? (
-        <section>
-          <h2 className="text-xl font-semibold mb-4 border-b pb-2">
-            📖 Planos Disponíveis{" "}
-            <Badge
-              variant="secondary"
-              className="bg-blue-500 text-white dark:bg-blue-600"
-            >
-              {planosPublicos.length}
-            </Badge>
-          </h2>
-          {carregandoPlanosPublicos ? (
-            <p className="text-gray-500">Carregando planos</p>
-          ) : planosPublicos.length === 0 ? (
-            <p className="text-gray-500">Nenhum plano público disponível.</p>
-          ) : (
-            <div className="grid gap-4 sm:grid-cols-2">
-              {planosPublicos.map((plano) => (
-                <div
-                  key={plano.id}
-                  className="relative border rounded-2xl p-5 shadow-sm hover:shadow-md bg-gray-50 dark:bg-gray-900 transition"
-                >
-                  <button className="absolute hover:cursor-pointer top-3 right-4 p-1 rounded hover:bg-gray-200 dark:hover:bg-gray-800 transition">
-                    <Share2 className="w-5 h-5 text-gray-500 dark:text-gray-400" />
-                  </button>
-                  <h3 className="font-semibold text-lg">{plano.nome}</h3>
-                  <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
-                    {plano.descricao}
-                  </p>
-
-                  <div className="flex items-center justify-between mt-4">
-                    {/* Informações do plano */}
-                    <div className="flex flex-col gap-1 text-gray-500 text-sm">
-                      {(plano.usuarios_planos?.[0]?.count ?? 0) > 0 && (
-                        <div className="flex items-center gap-1">
-                          <Users className="w-4 h-4" />{" "}
-                          {plano.usuarios_planos?.[0]?.count} inscritos
-                        </div>
-                      )}
-                      <div className="flex items-center gap-1 ">
-                        Criado por{" "}
-                        <span className="text-accent-foreground font-medium">
-                          {plano.usuario.nome}
-                        </span>
-                      </div>
-                    </div>
-
-                    {/* Botão de ação */}
-                    <Button
-                      onClick={() => inscrever(plano.id)}
-                      className="bg-cyan-600 hover:bg-cyan-700 text-white text-sm"
-                    >
-                      Inscrever-se
-                    </Button>
-                  </div>
-                </div>
-              ))}
-            </div>
-          )}
-        </section>
-      ) : null}
-      <Footer />
-    </div>
+          </section>
+        ) : null}
+        <Footer />
+      </div>
+    </>
   );
 }

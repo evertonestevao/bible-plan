@@ -10,16 +10,11 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Label } from "@/components/ui/label";
-// import Lottie from "lottie-react";
-// import bookAnimation from "../../animations/book.json";
 import Footer from "@/components/ui/Footer";
-import LoginButton from "@/components/ui/LoginButton";
 import { useUser } from "@/contexts/UserContext";
 import BookLoader from "@/components/ui/BookAnimation";
 import VersiculoCollapse from "@/components/ui/VersiculoCollapse";
-import { ThemeToggle } from "@/components/ui/theme-toggle";
 import Header from "@/components/ui/Header";
-// import BookLoader from "@/components/ui/BookAnimation";
 
 type Livro = {
   name: string;
@@ -76,8 +71,6 @@ export default function BibliaPage() {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <div className="w-64 h-64">
-          {/* <Lottie animationData={bookAnimation} loop={true} /> */}
-          {/* Carregando */}
           <BookLoader />
         </div>
       </div>
@@ -88,10 +81,10 @@ export default function BibliaPage() {
 
   return (
     <div className="min-h-screen flex flex-col bg-[#f8f8f5] dark:bg-gray-950">
-      <Header />
+      <Header title="BíbliaGo" />
 
       <div className="sticky top-0 z-10 bg-[#f8f8f5] dark:bg-gray-950 border-b border-gray-200 dark:border-gray-800 shadow-sm">
-        <div className="max-w-3xl mx-auto flex justify-between items-center px-4 pb-3 pt-2">
+        <div className="max-w-5xl mx-auto flex justify-between items-center px-4 pb-3 pt-2">
           <div>
             {livro && (
               <p
@@ -127,8 +120,7 @@ export default function BibliaPage() {
         </div>
       </div>
 
-      <main id="seletor-livros" className="flex-1 w-full max-w-3xl mx-auto p-4">
-        {/* LQuero que venha pra cá, pq as vezes desceu bastante */}
+      <main id="seletor-livros" className="flex-1 w-full max-w-5xl mx-auto p-4">
         {livro && (
           <div className="flex gap-4 mb-4 flex-wrap sm:flex-nowrap items-center">
             <div className="flex-1 min-w-[120px]">
@@ -178,7 +170,6 @@ export default function BibliaPage() {
           </div>
         )}
 
-        {/* Ao clicar aqui, quero abrir um tipo de collapse para mostrar em baixo o mesmo versículo em outras versões */}
         {livro && (
           <div className="border rounded p-4 dark:bg-gray-900 space-y-2">
             {versos.map((v, i) => (
@@ -194,7 +185,6 @@ export default function BibliaPage() {
           </div>
         )}
 
-        {/* Botões de navegação */}
         {livro && (
           <div className="flex justify-between mt-6 mb-6">
             <button
